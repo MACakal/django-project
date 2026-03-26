@@ -15,7 +15,9 @@
 
 <body>
     <div class="nav-container">
-        <p><img src="{% static 'base/img/logo.png' %}"></p>
+        <a href="{% url 'home' %}">
+            <img src="{% static 'base/img/logo.png' %}">
+        </a>
 
         {% if user.is_authenticated %}
             <!-- LEFT NAV LINKS -->

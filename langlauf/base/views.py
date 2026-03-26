@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.shortcuts import redirect
-from .forms import NameForm, DistanceForm, TimeForm, ProfileForm
+from .forms import NameForm, DistanceForm, TimeForm, ProfileForm, Time, Distance
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
@@ -23,48 +23,48 @@ def distances(requests):
 def times(requests, length):
     times = Distance.objects.filter(Distance=length)
     context = {'times': times}
-    return render(request, 'base/time.html', context)
+    return render(requests, 'base/time.html', context)
 
-@login_required
-def nameform(requests):
-    form = NameForm()
-    context = {"form": form}
+# @login_required
+# def nameform(requests):
+#     form = NameForm()
+#     context = {"form": form}
 
-    if requests.method == "POST":
-        name = requests.POST.get("your_name")
-        context["greeting"] = f"Welcome {name}!"
-    return render(requests, "base/nameform.html", context)
+#     if requests.method == "POST":
+#         name = requests.POST.get("your_name")
+#         context["greeting"] = f"Welcome {name}!"
+#     return render(requests, "base/nameform.html", context)
 
-@login_required
-def add_distance(requests):
-    if requests.method == "POST":
-        form = DistanceForm(requests.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(requests, "Distance added succesfully")
-            return redirect("distances")
+# @login_required
+# def add_distance(requests):
+#     if requests.method == "POST":
+#         form = DistanceForm(requests.POST)
+#         if form.is_valid():
+#             form.save()
+#             messages.success(requests, "Distance added succesfully")
+#             return redirect("distances")
 
-    else:
-        form = DistanceForm()
+#     else:
+#         form = DistanceForm()
 
-    context = {"form": form}
+#     context = {"form": form}
 
-    return render(requests, "base/distanceform.html", context)
+#     return render(requests, "base/distanceform.html", context)
 
-@login_required
-def edit_distance(requests, pk):
-    distance = Distance.objects.get(pk=pk)
+# @login_required
+# def edit_distance(requests, pk):
+#     distance = Distance.objects.get(pk=pk)
 
-    if requests.method == "POST":
-        form = DistanceForm(requests.POST, instance=distance)
-        if form.is_valid():
-            form.save()
-            messages.success(requests, "Distance updated succesfully")
-            return redirect("distances")
-    else:
-        form = DistanceForm(instance=distance)
-    context = {"form": form}
-    return render(requests, "base/distanceform.html", context)
+#     if requests.method == "POST":
+#         form = DistanceForm(requests.POST, instance=distance)
+#         if form.is_valid():
+#             form.save()
+#             messages.success(requests, "Distance updated succesfully")
+#             return redirect("distances")
+#     else:
+#         form = DistanceForm(instance=distance)
+#     context = {"form": form}
+#     return render(requests, "base/distanceform.html", context)
     
 def register(requests):
     if requests.method == "POST":
