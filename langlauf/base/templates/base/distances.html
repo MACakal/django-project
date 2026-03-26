@@ -1,0 +1,16 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+    <h1>All distances</h1>
+    {% for distance in distances %}
+        <div class="time-entry">
+            <span class="label">Length:</span>
+            <span class="value">{{ distance.length }}</span>
+        </div>
+        <div class="time-entry">
+            <span class="label">Full name:</span>
+            <span class="value">{{ distance.full_name }}</span>
+        </div>
+        <br>
+    {% endfor %}
+{% endblock content %}

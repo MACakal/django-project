@@ -1,0 +1,25 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+    <h1>Unapproved times</h1>
+    {% for time in times %}
+    <div class="time-entry">
+        <span class="label">Distance: </span>
+        <span class="value">{{ time.distance.length }}</span>
+    </div>
+    <div class="time-entry">
+        <span class="label">Time: </span>
+        <span class="value">{{ time.time_in_minutes }}</span>
+    </div>
+    <div class="time-entry">
+        <span class="label">Date: </span>
+        <span class="value">{{ time.date }}</span>
+    </div>
+    <div class="time-entry">
+        <span class="label">User: </span>
+        <span class="value">{{ time.user.get_username }}</span>
+    </div>
+        <a href="{% url 'approve_time' time.pk %}">Approve</a>
+        <a href="{% url 'deny_time' time.pk %}">Deny</a>
+    {% endfor %}
+{% endblock content %}

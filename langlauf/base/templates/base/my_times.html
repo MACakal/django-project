@@ -1,0 +1,19 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<h1>Your times</h1>
+{% for time in times %}
+    <div class="time-entry">
+        <span class="label">Distance:</span>
+        <span class="value">{{ time.distance }}</span>
+    </div>
+    <div class="time-entry">
+        <span class="label">Time:</span>
+        <span class="value">{{ time.time_in_minutes }}</span>
+    </div>
+    <a href="{% url 'edit_time' time.pk %}">Edit</a>
+    <br>
+{% endfor %}
+{% endblock content %}
+
+

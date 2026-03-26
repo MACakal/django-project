@@ -1,0 +1,20 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<h1>Fastest Times Per Distance</h1>
+{% for time in fastest_times %}
+    <div class="time-entry">
+        <span class="label">Distance:</span>
+        <span class="value">{{ time.distance.length }}</span>
+    </div>
+    <div class="time-entry">
+        <span class="label">Time:</span>
+        <span class="value">{{ time.time_in_minutes }} minutes</span>
+    </div>
+    <div class="time-entry">
+        <span class="label">User:</span>
+        <span class="value">{{ time.user.username }}</span>
+    </div>
+    <br>
+{% endfor %}
+{% endblock content %}

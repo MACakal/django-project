@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html> 
+<html lang="en"> 
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+
+    <title>{% block title %}Langlaufvereniging{% endblock title %}</title> 
+
+    <link rel="stylesheet" href="{% static 'base/css/style.css' %}">
+
+    {% block csslinks %}{% endblock csslinks %}
+</head>
+
+<body>
+    <div class="nav-container">
+        <p><img src="{% static 'base/img/logo.png' %}"></p>
+
+        {% if user.is_authenticated %}
+            <!-- LEFT NAV LINKS -->
+            <a href="{% url 'fastest_times' %}" class="nav-item">Fastest Times</a>
+            <a href="{% url 'newtime' %}" class="nav-item">New Time</a>
+            <a href="{% url 'my_times' %}" class="nav-item">My Times</a>
+            <a href="{% url 'edit_profile' %}" class="nav-item">Edit profile</a>
+
+            {% if user.is_staff %}
+                <a href="{% url 'unapproved_times' %}" class="nav-item">Approve Time</a>
+            {% endif %}
+
+            <div class="nav-right">
+                {% if user.profile.profile_picture %}
+                    <div class="nav-profile-wrapper">
+                        <img src="{{ user.profile.profile_picture.url }}" class="nav-profile-pic">
+                    </div>
+                {% endif %}
+
+                <form action="{% url 'logout' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="nav-btn-link">
+                        Logout {{ user.get_username }}
+                    </button>
+                </form>
+            </div>
+        {% else %}
+            <a href="{% url 'login' %}" class="nav-item">Login</a>
+            <a href="{% url 'register' %}" class="nav-item">Sign Up</a>
+        {% endif %}
+    </div>
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+            {{ message }}<br>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="content">
+        {% block content %}{% endblock content %}
+    </div>
+</body>
+</html>
